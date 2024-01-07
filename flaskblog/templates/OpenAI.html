@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<body>
+    <img src="{{ url_for('static', filename='CB1.jpg') }}" alt="Chatbot image" class="icon" width="100" height="auto" />
+    <h3>Need help?</h3>
+    <p><strong>You:</strong> {{ user_input }}</p>
+    <p><strong>Chatbot:</strong> {{ bot_response }}</p>
+    <form action="{{ url_for('OpenAI') }}" method="post">
+      <label for="message">Message:</label>
+      <input type="text" id="message" name="message" required>
+      <button type="submit">Send</button>
+    </form>
+    {% if result %}
+    <div class="result">{{ result }}</div>
+    {% endif %}
+  </body>
+
+{% endblock content %} 
