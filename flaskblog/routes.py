@@ -1,13 +1,20 @@
 import secrets
 import os
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, send_file
+from flask import render_template, url_for, flash, redirect, request, send_file, Flask, Response
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import openai
-
+import scrapy
+from scrapy.crawler import CrawlerProcess
+from scrapy.http import HtmlResponse
+from scrapy.utils.project import get_project_settings
+from twisted.internet import reactor
+from threading import Thread
+#from scrapy.linkextractors import LinkExtractractor
+import pdfkit
 
 openai.api_key = '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'
 
@@ -114,7 +121,7 @@ def OpenAI():
     prompt = f"User: {user_input}\nChatbot: "
     chat_history = []
     response = openai.Completion.create(
-        engine="text-davinci-003",
+        engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
         temperature=0.5,
         max_tokens=60,
@@ -128,4 +135,20 @@ def OpenAI():
 
 @app.route("/PYP", methods=['GET', 'POST'])
 def PYP():
+    if request.method == 'POST':
+        # Handle the form submission and generate PDF
+        name = request.form.get('username')
+        email = request.form.get('email')
+
+        html = f"<html><body><h1>Hi {name}</h1><h2>Your email is {email}</h2></body></html>"
+        pdf = pdfkit.from_string(html, False)
+
+        headers = {
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': f"attachment; filename={name}.pdf"
+        }
+        response = Response(pdf, headers=headers)
+        return response
+
+    # For GET requests, render the initial page
     return render_template('PYP.html', title='Past Year Paper Generator')

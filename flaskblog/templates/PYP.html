@@ -2,16 +2,18 @@
 {% block content %}
 
 <body>
-    <img src="{{ url_for('static', filename='CB2.jpg') }}" alt="Chatbot image" class="icon" width="100" height="auto" />
-    <h1>Past Year Paper Generator</h1>
-    <form action="/PYP" method="POST">
-        <label for="keywords">Enter Keywords (comma-separated):</label>
-        <input type="text" id="keywords" name="keywords" required>
-        <button type="submit">Generate Paper</button>
-    </form>
-    {% if result %}
-    <div class="result">{{ result }}</div>
-    {% endif %}
-  </body>
+  <img src="{{ url_for('static', filename='CB2.jpg') }}" alt="Chatbot image" class="icon" width="100" height="auto" />
+  <h1>Past Year Paper Generator</h1>
+  <form id="pdfForm" action="/PYP" method="POST">
+      <button type="button" onclick="generatePdf()">Generate Paper</button>
+  </form>
+
+  <script>
+      function generatePdf() {
+          // Use JavaScript to submit the form when the button is clicked
+          document.getElementById("pdfForm").submit();
+      }
+  </script>
+</body>
 
 {% endblock content %} 
