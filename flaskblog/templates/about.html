@@ -2,6 +2,87 @@
 {% block content %}
 
     <h1>About Page</h1>
-    <p>Educational Tool 2</p>
-
+    <p>Hi! I'm Crystal, currently in year 13, <em>studying Double Maths, Physics and Economics</em> at Concord College. 
+    <br />The web application you are on right now is my EPQ artefact.<br /><br/ >Please provide any feedback after you've tried using it!</p>
+    <br />
+    <br />
+    <h1>Feedback Form</h1>
+    <iframe width="640px" height="480px" 
+    src="https://forms.office.com/Pages/ResponsePage.aspx?id=66Fx2tVjj0irJnWfMs2_TWdt_-e3vxNNvig2pFsrM3JURDIxWTVDNVBWNjBCQ0FOVzJEWTkxUk84SS4u&embed=true" 
+    frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" 
+    allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+    <br />
+    <br />
+    <br />
+    <h1>Spotify Playlists</h1>
+    <head>
+        <title>A Spotify Embed</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+          .episodes {
+            display: flex;
+            flex-direction: column;
+          }
+      
+          .episode {
+            min-width: max-content;
+            margin-bottom: .8rem;
+            padding: .8rem 1rem;
+            border-radius: 10px;
+            border: 0;
+            background: #191414;
+            color: #fff;
+            cursor: pointer;
+          }
+      
+          .episode:hover {
+            background: #1Db954;
+          }
+      
+          @media screen and (min-width: 860px) {
+            body {
+              display: flex;
+              flex-direction: row;
+              gap: 1rem;
+            }
+          }
+        </style>
+      </head>
+      
+      <body>
+        <div class="episodes">
+          <button class="episode" data-spotify-id="spotify:episode:33Z3MfHX01lu7s4cou1lL7?si=6bff4371200741c3">
+            A-Level Biology Podcast
+          </button>
+          <button class="episode" data-spotify-id="spotify:episode:4GCQXkAL9bbaCExGPq8EwY?si=ad2af67fb62b4c63">
+            A-Level Chemistry Podcast
+          </button>
+          <button class="episode" data-spotify-id="spotify:episode:4OlO16LwjEUuxSyncsOsGY?si=2a028e9b15bb4ea8">
+            A-Level Gepgraphy Podcast
+          </button>
+        </div>
+      
+        <div id="embed-iframe"></div>
+        <script src="https://open.spotify.com/embed/iframe-api/v1" async>
+        </script>
+        <script type="text/javascript">
+          window.onSpotifyIframeApiReady = (IFrameAPI) => {
+            const element = document.getElementById('embed-iframe');
+            const options = {
+              width: '100%',
+              height: '160',
+              uri: 'spotify:episode:33Z3MfHX01lu7s4cou1lL7?si=6bff4371200741c3'
+            };
+            const callback = (EmbedController) => {
+              document.querySelectorAll('.episode').forEach(
+                episode => {
+                  episode.addEventListener('click', () => {
+                    EmbedController.loadUri(episode.dataset.spotifyId)
+                  });
+                })
+            };
+            IFrameAPI.createController(element, options, callback);
+          };
+        </script>
+      </body>
 {% endblock content %}
