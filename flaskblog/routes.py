@@ -16,7 +16,7 @@ from threading import Thread
 #from scrapy.linkextractors import LinkExtractractor
 import pdfkit
 
-openai.api_key = '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'
+openai.api_key = ''
 
 @app.route("/")
 @app.route("/home")
