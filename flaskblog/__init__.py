@@ -5,7 +5,7 @@ import os
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
-openai.api_key = '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'
+openai.api_key = ''
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '433ca33a3bffb16ca5bfb7563fb05ab6'
